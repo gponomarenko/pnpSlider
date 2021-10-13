@@ -66,7 +66,21 @@ export const PnpSlider: React.FunctionComponent<IPnpSliderProps> = (props) => {
           console.log('response status:', response);
           if (response) {
             console.log('response is OK');
-            return response;
+            const res = response;
+            // .map(
+            //   item => 
+            //     {
+            //     imageSrc: item.imgSrc.Url,
+            //     title: item.newsName,
+            //     description: 'This is Colosseum',
+            //     imageFit: ImageFit.cover,
+            //     imgClassName: styles.carouselImage,
+            //     detailsClassName: styles.carouselDetails,
+            //     titleClassName: styles.carouselTitle,
+            //     descriptionClassName: styles.carouselDescription
+            //   }
+            // );
+            return res;
           }
           throw response;
       })
