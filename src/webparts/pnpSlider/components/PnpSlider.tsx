@@ -58,28 +58,18 @@ export const PnpSlider: React.FunctionComponent<IPnpSliderProps> = (props) => {
       .getByTitle('news')
       .items
       .select(
-        '*'
+        '*',
+        // 'imgSrc/Url'
       )
-      .getAll(5)
+      // .expand('imgSrc')
+      .top(5)
+      .get()      
       .then(
         (response: any) => {
           console.log('response status:', response);
           if (response) {
             console.log('response is OK');
             const res = response;
-            // .map(
-            //   item => 
-            //     {
-            //     imageSrc: item.imgSrc.Url,
-            //     title: item.newsName,
-            //     description: 'This is Colosseum',
-            //     imageFit: ImageFit.cover,
-            //     imgClassName: styles.carouselImage,
-            //     detailsClassName: styles.carouselDetails,
-            //     titleClassName: styles.carouselTitle,
-            //     descriptionClassName: styles.carouselDescription
-            //   }
-            // );
             return res;
           }
           throw response;
@@ -133,6 +123,21 @@ export const PnpSlider: React.FunctionComponent<IPnpSliderProps> = (props) => {
   }, []);
 
   console.log('news', news);
+  const newsList = news
+  .map(
+    item => 
+      ({
+      imageSrc: item.imgSrc.Url,
+      title: item.newsName,
+      description: item.newsDescription,
+      imageFit: ImageFit.cover,
+      imgClassName: styles.carouselImage,
+      detailsClassName: styles.carouselDetails,
+      titleClassName: styles.carouselTitle,
+      descriptionClassName: styles.carouselDescription
+    })
+  );
+  console.log('newsList', newsList);
   
   return (
     <div className={styles.carousel}>
@@ -148,10 +153,10 @@ export const PnpSlider: React.FunctionComponent<IPnpSliderProps> = (props) => {
             contentContainerStyles={styles.carouselContent}
             // loadingComponentContainerStyles={styles.loadingComponentContainer}
             elementsCount={5}
-            interval={400000}
+            interval={15000}
             isInfinite={true}
             pauseOnHover={true}
-            element={elements}
+            element={newsList}
             slide={true}
             indicators={false}
             onMoveNextClicked={(index: number) => { console.log(`Next button clicked: ${index}`); }}
